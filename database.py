@@ -31,7 +31,7 @@ class Tweet(db.Model):
     name = db.Column(db.String(60), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False)
     content = db.Column(db.Text, nullable=False)
-    rating = db.Column(db.Float, nullable=False)
+    rating = db.Column(db.Float, nullable=False, default=0.0)
     business_id = db.Column(db.Integer, db.ForeignKey('business.id'), nullable=False)
 
     def __repr__(self):
