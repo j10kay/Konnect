@@ -11,11 +11,11 @@ class TweetAnalyzer():
 		return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", intweet).split())
 
 	# Analyzes result from csv file
-	def sentimentAnalyzer(self):
+	def sentimentAnalyzer(self, csvFileName = "myTweets.csv"):
 		# returns 
 		analysis = SentimentIntensityAnalyzer()
 
-		cur_tweets = self.ListOfTweets()
+		cur_tweets = self.ListOfTweets(csvFileName)
 
 		# commented out as we do not need to clean tweets
 		# cur_tweets = []
@@ -37,8 +37,8 @@ class TweetAnalyzer():
 		return frating/count
 
 	# returns a list 
-	def ListOfTweets(self):
-		with open('myTweets.csv') as csvfile:
+	def ListOfTweets(self, csvFileName):
+		with open(csvFileName) as csvfile:
 			readCSV = csv.reader(csvfile, delimiter = ",")
 
 			cur_tweets = []
