@@ -15,3 +15,12 @@ class TweetAnalyzer():
 		frating = trating + srating
 
 		return frating
+
+def GetAndUpdateRating(tweet):
+	with open('mytweet.csv') as csvfile:
+		readCSV = csv.reader(csvfile, delimiter = ",")
+
+		cur_tweets = []
+
+		for row in readCSV:
+			init_tweet = row[2]
