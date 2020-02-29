@@ -17,4 +17,4 @@ class TwitterScrapper:
             keywords = [keywords]
         for keyword in keywords:
             for tweet in tweepy.Cursor(self.api.search, q=keyword, count=100, lang="en", since="2017-04-03").items():
-                csvWriter.writerow([tweet.user.screen_name, tweet.created_at, tweet.text])
+                csvWriter.writerow([tweet.user.screen_name, tweet.created_at, tweet.text, tweet.id_str])
