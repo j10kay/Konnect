@@ -1,26 +1,66 @@
-from textblob import TextBlob
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+import csv
 
 import re
 
 class TweetAnalyzer():
 
+	# Function to clean tweets and remove 
 	def cleanTweet(self, intweet):
 		return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", intweet).split())
 
-	def sentimentAnalyzer(self, tweet):
-		trating = (analysis.sentiment.polarity + 1) * 5/2
+	# Analyzes result from csv file
+	def sentimentAnalyzer(self):
+		# returns 
+		analysis = SentimentIntensityAnalyzer()
 
-		srating = 5 - analysis.sentiment.subjectivity
+		cur_tweets = self.ListOfTweets()
 
-		frating = trating + srating
+		# commented out as we do not need to clean tweets
+		# cur_tweets = []
 
-		return frating
+		# for tweet in uncleaned_cur_tweets:
+		# 	cur_tweets.append(self.cleanTweet(tweet))
 
-def GetAndUpdateRating(tweet):
-	with open('mytweet.csv') as csvfile:
-		readCSV = csv.reader(csvfile, delimiter = ",")
+		frating = 0
+		count = 0
 
-		cur_tweets = []
+		for tweet in cur_tweets:
+			vs = analysis.polarity_scores(tweet)
 
-		for row in readCSV:
-			init_tweet = row[2]
+			crating = (vs['compound'] + 1) * 5/2
+			frating += crating
+			count += 1
+
+
+		return frating/count
+
+	# returns a list 
+	def ListOfTweets(self):
+		with open('myTweets.csv') as csvfile:
+			readCSV = csv.reader(csvfile, delimiter = ",")
+
+			cur_tweets = []
+
+
+			for row in readCSV:
+				init_tweet = row[2]
+				cur_tweets.append(init_tweet)
+
+			i = 0
+			while i < len(cur_tweets):
+				temp = cur_tweets[i]
+				cur_tweets[i] = temp[2:len(temp)-1]
+				i+= 1
+
+			return cur_tweets
+
+test = TweetAnalyzer()
+
+print(test.sentimentAnalyzer())
+
+def main():
+    return
+
+if __name__ == "__main__":main()
