@@ -56,9 +56,8 @@ class TweetAnalyzer():
 
 			return cur_tweets
 
-test = TweetAnalyzer()
+analyze = TweetAnalyzer()
 
-print(test.sentimentAnalyzer())
 
 def main():
     return
