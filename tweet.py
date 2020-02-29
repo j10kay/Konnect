@@ -1,6 +1,6 @@
 import tweepy
 import csv
-from Database import db, Tweet
+from Database import db, Tweet, Business
 
 class TwitterScrapper:
     def __init__(self):
